@@ -8,6 +8,12 @@ const app = express();
 const proxy = httpProxy.createProxyServer();
 app.use(cors());
 
+// corporate proxy to connect to via environment variables
+var proxyServer = process.env.HTTPS_PROXY ||
+    process.env.HTTP_PROXY;
+
+console.log(proxyServer);
+
 function rewrite(options) {
     return (req, res) => {
         console.log(`rewriting "${req.hostname}${req.url}" to "${options.target}"`);
