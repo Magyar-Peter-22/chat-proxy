@@ -10,12 +10,11 @@ app.use(cors());
 
 function rewrite(options) {
     return (req, res) => {
-        console.log(`rewriting "${req.url}" to "${options.target}"`);
+        console.log(`rewriting "${req.hostname}${req.url}" to "${options.target}"`);
         proxy.web(req, res, options)
     }
 }
 
-console.log(process.env.API_URL)
 app.use('/api', rewrite({
     target: process.env.API_URL,
     ws: true
